@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Smart Farm Control Node 03 — Overview</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<canvas id="bgCanvas"></canvas>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="logo" href="#hero">
+      <span class="logo-icon" aria-hidden="true">◈</span>
+      <span class="logo-text">SmartFarm<span class="logo-accent">.Node03</span></span>
+    </a>
+    <nav class="nav" aria-label="Primary">
+      <a href="#overview">Overview</a>
+      <a href="#pinmap">Pinmap</a>
+      <a href="#api">API</a>
+      <a href="#commands">Commands</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section id="hero" class="hero">
+    <div class="container">
+      <div class="hero-badge reveal">ESP32‑S3 Firmware Overview</div>
+      <h1 class="hero-title reveal">
+        Smart Farm<br>
+        <span class="gradient-text">Control Node 03</span>
+      </h1>
+      <p class="hero-lead reveal">
+        WiFi AP + HTTP Token 기반 임베디드 제어 노드.<br>
+        모터, LED, LCD, 버튼을 하나의 보드에서 제어합니다.
+      </p>
+      <div class="hero-actions reveal">
+        <a class="btn btn-primary" href="#overview">Explore Overview</a>
+        <a class="btn btn-ghost" href="#api">View API</a>
+      </div>
+      <div class="hero-meta reveal">
+        <div class="meta-chip">
+          <span class="chip-dot" style="--dot:#34d399"></span>
+          <span>AP Mode</span>
+        </div>
+        <div class="meta-chip">
+          <span class="chip-dot" style="--dot:#60a5fa"></span>
+          <span>HTTP 80</span>
+        </div>
+        <div class="meta-chip">
+          <span class="chip-dot" style="--dot:#f472b6"></span>
+          <span>X‑API‑Token</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="overview" class="section">
+    <div class="container">
+      <div class="section-header reveal">
+        <h2>System Overview</h2>
+        <p>하드웨어 구성과 주요 기능을 한눈에 확인하세요.</p>
+      </div>
+      <div class="grid grid-3">
+        <article class="card reveal">
+          <div class="card-icon" aria-hidden="true">🖥</div>
+          <h3>Board</h3>
+          <p>ESP32‑S3 N8R8</p>
+          <ul class="spec-list">
+            <li><span>Flash</span><span>8 MB</span></li>
+            <li><span>PSRAM</span><span>8 MB</span></li>
+            <li><span>IDE</span><span>Arduino</span></li>
+          </ul>
+        </article>
+        <article class="card reveal">
+          <div class="card-icon" aria-hidden="true">📡</div>
+          <h3>Network</h3>
+          <p>Soft‑AP 전용 HTTP 서버</p>
+          <ul class="spec-list">
+            <li><span>SSID</span><span>여기에 기입</span></li>
+            <li><span>Pass</span><span>여기에 기입</span></li>
+            <li><span>IP</span><span>여기에 기입</span></li>
+          </ul>
+        </article>
+        <article class="card reveal">
+          <div class="card-icon" aria-hidden="true">🔐</div>
+          <h3>Security</h3>
+          <p>X‑API‑Token 헤더 인증</p>
+          <ul class="spec-list">
+            <li><span>Default</span><code>여기에 기입</code></li>
+            <li><span>Setup</span><code>/setup</code></li>
+            <li><span>Reset</span><span>Button 5s hold</span></li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="container">
+      <div class="section-header reveal">
+        <h2>Peripherals</h2>
+        <p>연결된 주변 장치와 제어 가능한 상태입니다.</p>
+      </div>
+      <div class="grid grid-4">
+        <article class="card reveal">
+          <div class="card-icon" style="color:#34d399" aria-hidden="true">⚡</div>
+          <h3>Motor</h3>
+          <p class="muted">L9110S H‑Bridge</p>
+          <div class="status-row">
+            <span class="status-pill" data-on>Forward</span>
+            <span class="status-pill" data-off>Stop</span>
+          </div>
+          <div class="pin-tag">IO 4 / IO 5</div>
+        </article>
+        <article class="card reveal">
+          <div class="card-icon" style="color:#fbbf24" aria-hidden="true">💡</div>
+          <h3>LED</h3>
+          <p class="muted">WS2812 On‑board</p>
+          <div class="status-row">
+            <span class="status-pill" style="--pill-bg:#065f46;--pill-fg:#34d399">Green</span>
+            <span class="status-pill" style="--pill-bg:#1e3a8a;--pill-fg:#60a5fa">Blue</span>
+            <span class="status-pill" style="--pill-bg:#713f12;--pill-fg:#fbbf24">Yellow</span>
+            <span class="status-pill" style="--pill-bg:#7f1d1d;--pill-fg:#f87171">Red</span>
+            <span class="status-pill" style="--pill-bg:#374151;--pill-fg:#e5e7eb">White</span>
+          </div>
+          <div class="pin-tag">IO 48</div>
+        </article>
+        <article class="card reveal">
+          <div class="card-icon" style="color:#60a5fa" aria-hidden="true">📟</div>
+          <h3>LCD</h3>
+          <p class="muted">20x4 I2C PCF8574</p>
+          <div class="status-row">
+            <span class="status-pill" data-on>ON</span>
+            <span class="status-pill" data-off>OFF</span>
+          </div>
+          <div class="pin-tag">SDA 16 / SCL 17</div>
+        </article>
+        <article class="card reveal">
+          <div class="card-icon" style="color:#f472b6" aria-hidden="true">🔘</div>
+          <h3>Button</h3>
+          <p class="muted">INPUT_PULLUP</p>
+          <div class="status-row">
+            <span class="status-pill" data-off>HIGH</span>
+            <span class="status-pill" data-on>LOW</span>
+          </div>
+          <div class="pin-tag">IO 1</div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="pinmap" class="section">
+    <div class="container">
+      <div class="section-header reveal">
+        <h2>Pin Connection</h2>
+        <p>ESP32‑S3 핀맵과 모듈 연결 관계입니다.</p>
+      </div>
+      <div class="pinmap reveal">
+        <div class="pinmap-board">
+          <div class="board-label">ESP32‑S3</div>
+          <div class="pin-row">
+            <div class="pin pin-gnd">GND</div>
+            <div class="pin pin-io" data-label="Button">IO 1</div>
+            <div class="pin pin-io" data-label="Motor A-IA">IO 4</div>
+            <div class="pin pin-io" data-label="Motor A-IB">IO 5</div>
+          </div>
+          <div class="pin-row">
+            <div class="pin pin-io" data-label="I2C SDA">IO 16</div>
+            <div class="pin pin-io" data-label="I2C SCL">IO 17</div>
+            <div class="pin pin-nc">IO 35‑37</div>
+            <div class="pin pin-io" data-label="WS2812">IO 48</div>
+          </div>
+        </div>
+        <div class="pinmap-legend">
+          <div class="legend-item"><span class="legend-dot" style="background:#34d399"></span> 사용 중</div>
+          <div class="legend-item"><span class="legend-dot" style="background:#4b5563"></span> 사용 불가 (35‑37)</div>
+          <div class="legend-item"><span class="legend-dot" style="background:#1f2937;border:1px solid #374151"></span> GND</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="api" class="section section-alt">
+    <div class="container">
+      <div class="section-header reveal">
+        <h2>HTTP API</h2>
+        <p>AP 접속 후 사용 가능한 엔드포인트와 인증 방식입니다.</p>
+      </div>
+
+      <div class="api-grid reveal">
+        <div class="api-card">
+          <div class="api-header">
+            <span class="method method-get">GET</span>
+            <code>/api/ping</code>
+          </div>
+          <p class="muted">서버 생존 확인</p>
+        </div>
+        <div class="api-card">
+          <div class="api-header">
+            <span class="method method-get">GET</span>
+            <code>/api/state</code>
+          </div>
+          <p class="muted">현재 보드 전체 상태 조회</p>
+        </div>
+        <div class="api-card">
+          <div class="api-header">
+            <span class="method method-post">POST</span>
+            <code>/api/command</code>
+          </div>
+          <p class="muted">제어 명령 실행 (X‑API‑Token 필요)</p>
+        </div>
+      </div>
+
+      <div class="code-block reveal">
+        <div class="code-header">
+          <span>State JSON Example</span>
+          <button class="copy-btn" data-copy aria-label="Copy">Copy</button>
+        </div>
+        <pre><code>{
+  "ok": true,
+  "board": "SmartFarm Control Node 03",
+  "wifi": {
+    "mode": "AP",
+    "connected": true,
+    "ip": "여기에 기입",
+    "ssid": "여기에 기입"
+  },
+  "state": {
+    "motor": "Stop",
+    "lcdBacklight": false,
+    "lcdCountdown": 0,
+    "ledColor": "green",
+    "buttonState": "HIGH",
+    "buttonLatched": false
+  }
+}</code></pre>
+      </div>
+    </div>
+  </section>
+
+  <section id="commands" class="section">
+    <div class="container">
+      <div class="section-header reveal">
+        <h2>Command Reference</h2>
+        <p><code>POST /api/command</code> 에 전달하는 target / value 조합입니다.</p>
+      </div>
+      <div class="table-wrap reveal">
+        <table class="cmd-table">
+          <thead>
+            <tr>
+              <th>Target</th>
+              <th>Value</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td><code>motor</code></td><td><code>forward</code></td><td>모터 전진</td></tr>
+            <tr><td><code>motor</code></td><td><code>stop</code></td><td>모터 정지</td></tr>
+            <tr><td><code>led</code></td><td><code>green</code></td><td>LED 초록색</td></tr>
+            <tr><td><code>led</code></td><td><code>blue</code></td><td>LED 파란색</td></tr>
+            <tr><td><code>led</code></td><td><code>yellow</code></td><td>LED 노란색</td></tr>
+            <tr><td><code>led</code></td><td><code>red</code></td><td>LED 빨간색</td></tr>
+            <tr><td><code>led</code></td><td><code>white</code></td><td>LED 흰색</td></tr>
+            <tr><td><code>lcd</code></td><td><code>on</code></td><td>LCD 백라이트 ON (60s 카운트다운)</td></tr>
+            <tr><td><code>lcd</code></td><td><code>off</code></td><td>LCD 백라이트 OFF</td></tr>
+            <tr><td><code>button</code></td><td><code>simulate</code></td><td>버튼 입력 시뮬레이션</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="code-block reveal">
+        <div class="code-header">
+          <span>curl Example</span>
+          <button class="copy-btn" data-copy aria-label="Copy">Copy</button>
+        </div>
+        <pre><code>curl -X POST http://여기에_기입/api/command \
+  -H "Content-Type: application/json" \
+  -H "X-API-Token: 여기에_기입" \
+  -d '{"target":"motor","value":"forward"}'</code></pre>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="container">
+      <div class="section-header reveal">
+        <h2>Serial CLI</h2>
+        <p>시리얼 포트(115200)로도 동일한 제어가 가능합니다.</p>
+      </div>
+      <div class="grid grid-2">
+        <div class="code-block reveal">
+          <div class="code-header"><span>Command</span></div>
+          <pre><code>PING
+STATUS
+WIFI RESET
+WIFI STATUS
+CMD MOTOR FORWARD
+CMD MOTOR STOP
+CMD LED GREEN
+CMD LCD ON
+CMD LCD OFF
+BUTTON SIMULATE</code></pre>
+        </div>
+        <div class="code-block reveal">
+          <div class="code-header"><span>Response</span></div>
+          <pre><code>ACK PING
+STATE mode=AP ip=여기에_기입 ...
+ACK WIFI RESET
+ACK CMD MOTOR FORWARD
+ACK CMD LED GREEN</code></pre>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <p>Smart Farm Control Node 03 — ESP32‑S3 Firmware Overview</p>
+    <p class="muted">Built for GitHub Pages. No external dependencies.</p>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>
